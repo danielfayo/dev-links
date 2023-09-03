@@ -1,10 +1,16 @@
+'use client'
+
 import { Eye, Link2, UserCircle2 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from 'next/navigation'
 import React from "react";
 
 type NavProps = {};
 
 const Nav: React.FC<NavProps> = () => {
+  const pathname = usePathname()
+
+  const isActive = pathname === '/'
   return (
     <nav className="p-6 flex flex-col ">
       <div className="flex place-content-between p-4 bg-White rounded-lg">
@@ -18,8 +24,8 @@ const Nav: React.FC<NavProps> = () => {
         </Link>
         <div className="flex">
           <Link
-            href={""}
-            className="px-[27px] py-[11px] flex content-center gap-2 rounded-lg text-Grey hover:text-Purple"
+            href={"/"}
+            className={`px-[27px] py-[11px] flex content-center gap-2 rounded-lg ${isActive ? 'text-Purple bg-Light-Purple': 'text-Grey'}  hover:text-Purple`}
           >
             <Link2 size={20} />
             <span className="font-semibold text-base leading-6 hidden md:block">
@@ -27,7 +33,7 @@ const Nav: React.FC<NavProps> = () => {
             </span>
           </Link>
           <Link
-            href={""}
+            href={"/"}
             className="px-[27px] py-[11px] content-center flex gap-2 rounded-lg text-Grey hover:text-Purple"
           >
             <UserCircle2 size={20} />
