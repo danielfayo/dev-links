@@ -1,7 +1,29 @@
-import Image from "next/image";
+"use client";
+
 import Nav from "./components/ui/Nav";
+import LinkBlock from "./components/ui/LinkBlock";
+import { useState } from "react";
 
 export default function Home() {
+  const [userLinks, setUserLinks] = useState([
+    {
+      plat: "dev.to",
+      link: "devto.com",
+    },
+    {
+      plat: "freecodecamp",
+      link: "freecodecamp.com",
+    },
+    {
+      plat: "twitter",
+      link: "twitter.com",
+    },
+    {
+      plat: "hashnode",
+      link: "hashnode.com",
+    },
+  ]);
+
   return (
     <>
       <Nav />
@@ -23,26 +45,33 @@ export default function Home() {
             + Add new link
           </button>
 
-          <div className="p-[20px] flex bg-Light-Grey text-center mt-6 md:mt-10 rounded-lg justify-center">
-            <div className="flex flex-col gap-6 md:gap-10">
-              <img
-                src="./Group273.svg"
-                alt="Image of Hand on Phone"
-                className="w-32 md:w-64 mx-auto"
-              />
+          {userLinks.length === 0 ? (
+            <div className="p-[20px] flex bg-Light-Grey text-center mt-6 md:mt-10 rounded-lg justify-center">
+              <div className="flex flex-col gap-6 md:gap-10">
+                <img
+                  src="./Group273.svg"
+                  alt="Image of Hand on Phone"
+                  className="w-32 md:w-64 mx-auto"
+                />
 
-              <div className="flex flex-col gap-6 ">
-                <h3 className="text-Dark-Grey text-2xl font-bold">
-                  Let&#39;s get you started
-                </h3>
-                <p className="text-Grey text-base font-normal max-w-[488px]">
-                  Use the “Add new link” button to get started. Once you have
-                  more than one link, you can reorder and edit them. We&#39;re
-                  here to help you share your profiles with everyone!
-                </p>
+                <div className="flex flex-col gap-6 ">
+                  <h3 className="text-Dark-Grey text-2xl font-bold">
+                    Let&#39;s get you started
+                  </h3>
+                  <p className="text-Grey text-base font-normal max-w-[488px]">
+                    Use the “Add new link” button to get started. Once you have
+                    more than one link, you can reorder and edit them. We&#39;re
+                    here to help you share your profiles with everyone!
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            userLinks.map((link) => (
+
+              <LinkBlock plat={link.plat} link={link.link}  />
+            ))
+          )}
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 'use client'
 
-import { Eye, Link2, UserCircle2 } from "lucide-react";
+import { Eye, Link as Join, UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
 import React from "react";
@@ -10,11 +10,12 @@ type NavProps = {};
 const Nav: React.FC<NavProps> = () => {
   const pathname = usePathname()
 
-  const isActive = pathname === '/'
+  const homeActive = pathname === '/'
+  const profileActive = pathname === '/profile'
   return (
-    <nav className="p-6 flex flex-col ">
+    <nav className="flex flex-col mb-6">
       <div className="flex place-content-between p-4 bg-White rounded-lg">
-        <Link href={''} className="flex gap-2 align-middle">
+        <Link href={'/'} className="flex gap-2 align-middle">
           <img src="./solar_link-circle-bold.svg" alt="logo" />
           <img
             src="./devlinks.svg"
@@ -25,16 +26,16 @@ const Nav: React.FC<NavProps> = () => {
         <div className="flex">
           <Link
             href={"/"}
-            className={`px-[27px] py-[11px] flex content-center gap-2 rounded-lg ${isActive ? 'text-Purple bg-Light-Purple': 'text-Grey'}  hover:text-Purple`}
+            className={`px-[27px] py-[11px] items-center flex content-center gap-2 rounded-lg ${homeActive ? 'text-Purple bg-Light-Purple': 'text-Grey'}  hover:text-Purple`}
           >
-            <Link2 size={20} />
+            <Join size={20} />
             <span className="font-semibold text-base leading-6 hidden md:block">
               Links
             </span>
           </Link>
           <Link
-            href={"/"}
-            className="px-[27px] py-[11px] content-center flex gap-2 rounded-lg text-Grey hover:text-Purple"
+            href={"/profile"}
+            className={`px-[27px] py-[11px] items-center flex content-center gap-2 rounded-lg ${profileActive ? 'text-Purple bg-Light-Purple': 'text-Grey'}  hover:text-Purple`}
           >
             <UserCircle2 size={20} />
             <span className="font-semibold text-base leading-6 hidden md:block">
