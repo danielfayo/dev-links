@@ -11,7 +11,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-const preview = ({ params }: { params: { uid: string } }) => {
+const Preview = ({ params }: { params: { uid: string } }) => {
   const [user] = useAuthState(auth);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<DocumentData>();
@@ -69,7 +69,7 @@ const preview = ({ params }: { params: { uid: string } }) => {
       <div className="hidden md:block w-full h-[45rem] absolute -top-[50%] bg-Purple rounded-3xl -z-10" />
       <div className="flex flex-col gap-14 mt-16 p-12 md:bg-White rounded-3xl mx-auto max-w-sm md:shadow-lg">
         <div className="flex flex-col gap-6 text-center">
-          <img
+          <Image
             src={data?.photoURL}
             alt=""
             className="h-24 w-24 rounded-full object-cover mx-auto"
@@ -93,7 +93,7 @@ const preview = ({ params }: { params: { uid: string } }) => {
               style={{ backgroundColor: each.color }}
             >
               <div className="flex gap-2 items-center">
-                <img src={each.solid} alt="" className="w-5 h-5" />
+                <Image src={each.solid} alt="" className="w-5 h-5" />
                 <span
                   className={`text-base font-normal ${
                     each.platform === "Frontend Mentor"
@@ -119,4 +119,4 @@ const preview = ({ params }: { params: { uid: string } }) => {
     </>
   );
 };
-export default preview;
+export default Preview;

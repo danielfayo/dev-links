@@ -7,12 +7,13 @@ import { auth, firestore } from "../../../utitls/firebase/clientApp";
 import { doc, setDoc } from "firebase/firestore";
 import { User } from "firebase/auth";
 import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type signupProps = {};
 
-const signup: React.FC<signupProps> = () => {
-  const router = useRouter()
+const Signup: React.FC<signupProps> = () => {
+  const router = useRouter();
   const [signUpForm, setSignUpForm] = useState({
     email: "",
     password: "",
@@ -38,8 +39,17 @@ const signup: React.FC<signupProps> = () => {
       setFormError("Passwords do not match");
       return;
     }
-    createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
-    
+    try {
+      createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
+      toast({
+        title: "Accout Created Successfully",
+      });
+      router.push("/");
+    } catch (error) {
+      if (error) {
+        toast({ title: "Something went wrong" });
+      }
+    }
   };
 
   const createUserDocument = async (user: User) => {
@@ -50,10 +60,6 @@ const signup: React.FC<signupProps> = () => {
   useEffect(() => {
     if (userCred) {
       createUserDocument(userCred.user);
-      toast({
-        title: "Accout Created Successfully",
-      });
-      router.push('/')
     }
   }, [userCred]);
 
@@ -64,8 +70,8 @@ const signup: React.FC<signupProps> = () => {
           href={""}
           className="flex gap-2 align-middle mb-12 justify-center"
         >
-          <img src="./solar_link-circle-bold.svg" alt="logo" />
-          <img src="./devlinks.svg" alt="logo text" />
+          <Image src="./solar_link-circle-bold.svg" alt="logo" />
+          <Image src="./devlinks.svg" alt="logo text" />
         </Link>
         <div className="md:bg-White rounded-lg p-10">
           <div className="flex flex-col gap-2 mb-10">
@@ -86,7 +92,10 @@ const signup: React.FC<signupProps> = () => {
             isLoading={loading}
           />
 
-          <Link className="mt-6 text-Grey text-base font-normal" href={"/login"}>
+          <Link
+            className="mt-6 text-Grey text-base font-normal"
+            href={"/login"}
+          >
             Already have an account? <span className="text-Purple">Login</span>
           </Link>
         </div>
@@ -94,4 +103,4 @@ const signup: React.FC<signupProps> = () => {
     </>
   );
 };
-export default signup;
+export default Signup;

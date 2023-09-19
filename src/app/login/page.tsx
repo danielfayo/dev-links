@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 type loginProps = {};
 
-const login: React.FC<loginProps> = () => {
+const Login: React.FC<loginProps> = () => {
   const router = useRouter();
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -31,23 +31,24 @@ const login: React.FC<loginProps> = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     if (formError) setFormError("");
     e.preventDefault();
-    signInWithEmailAndPassword(loginForm.email, loginForm.password);
-  };
-
-  useEffect(() => {
-    if (error) {
-      setFormError(error.message);
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (userCred) {
+    try {
+      signInWithEmailAndPassword(loginForm.email, loginForm.password);
       toast({
         title: "SignIn Succesful",
       });
       router.push("/");
+    } catch (error) {
+      if (error){
+        toast({ title: "Someting went wrong" });
+      }
     }
-  }, [userCred]);
+  };
+
+  // useEffect(() => {
+  //   if (error) {
+  //     setFormError(error.message);
+  //   }
+  // }, [error]);
 
   return (
     <>
@@ -86,4 +87,4 @@ const login: React.FC<loginProps> = () => {
     </>
   );
 };
-export default login;
+export default Login;

@@ -3,7 +3,7 @@
 import { toast } from "@/components/ui/use-toast";
 import { DocumentData, doc, getDoc, setDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
-import { Image, Loader2, LoaderIcon } from "lucide-react";
+import { Image as ImageIcon, Loader2, LoaderIcon } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import {
   useAuthState,
@@ -15,10 +15,11 @@ import { auth, firestore, storage } from "../../../utitls/firebase/clientApp";
 import Nav from "../components/ui/Nav";
 import PhonePreview from "../components/ui/PhonePreview";
 import { User, updateEmail, updateProfile } from "firebase/auth";
+import Image from "next/image";
 
 type profileProps = {};
 
-const profile: React.FC<profileProps> = () => {
+const Profile: React.FC<profileProps> = () => {
   const [user] = useAuthState(auth);
   const [userInfo, setUserInfo] = useState<DocumentData>();
   const [signOut, loading, error] = useSignOut(auth);
@@ -30,6 +31,7 @@ const profile: React.FC<profileProps> = () => {
   const selectedFileRef = useRef<HTMLInputElement>(null);
   const [profileLoading, setProfileLoading] = useState(false);
   const [updatingEmail, setUpdatingEmail] = useState(false);
+  
 
   useEffect(() => {
     const getUserLinks = async () => {
@@ -141,18 +143,20 @@ const profile: React.FC<profileProps> = () => {
                       !selectFile || (!user?.photoURL && `bg-Light-Purple`)
                     } relative`}
                   >
-                    <Image size={40} className="mx-auto z-10" />
+                    <ImageIcon size={40} className="mx-auto z-10" />
                     <span className="text-base font-semibold z-10">
                       + Upload Image
                     </span>
                     {selectFile ? (
-                      <img
+                      <Image
                         src={selectFile}
+                        alt=""
                         className="absolute  w-[193px] h-[193px] rounded-lg object-cover opacity-40"
                       />
                     ) : (
-                      <img
+                      <Image
                         src={user?.photoURL as string}
+                        alt=""
                         className="absolute  w-[193px] h-[193px] rounded-lg object-cover opacity-40"
                       />
                     )}
@@ -263,4 +267,4 @@ const profile: React.FC<profileProps> = () => {
     </>
   );
 };
-export default profile;
+export default Profile;
