@@ -1,5 +1,5 @@
 import { GripHorizontal, Link as LinkJoin } from "lucide-react";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import {
   Select,
   SelectContent,
@@ -20,6 +20,8 @@ type LinkBlockProps = {
   index: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   deleteLink: (id: string) => void
+  inputEmpty: boolean
+  setInputEmpty: Dispatch<SetStateAction<boolean>>
 };
 
 const LinkBlock: React.FC<LinkBlockProps> = ({
@@ -28,7 +30,9 @@ const LinkBlock: React.FC<LinkBlockProps> = ({
   id,
   index,
   onChange,
-  deleteLink
+  deleteLink,
+  inputEmpty,
+  setInputEmpty
 }) => {
   const platIndex = platforms.findIndex(
     (item) => item.platform.toLowerCase() === plat
@@ -48,6 +52,10 @@ const LinkBlock: React.FC<LinkBlockProps> = ({
       return userLink;
     });
     dispatch(updateLink(updatedUserLinks))
+  }
+
+  if (!link || !plat){
+    setInputEmpty(true)
   }
 
   return (
@@ -118,6 +126,7 @@ const LinkBlock: React.FC<LinkBlockProps> = ({
           <LinkJoin width={16} className="text-Drey-Grey absolute bottom-3 ml-4" />
         </div>
       </div>
+      {/* {inputEmpty && <><span className="text-xs text-Red font-normal">One of the Inputs is Empty</span></>} */}
     </div>
   );
 };

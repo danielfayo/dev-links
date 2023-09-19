@@ -8,4 +8,5 @@ export type platform = {
   platform: string;
   image: string;
   color: string;
+  solid: string
 };

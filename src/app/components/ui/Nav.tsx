@@ -4,10 +4,13 @@ import { Eye, Link as Join, UserCircle2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../../utitls/firebase/clientApp";
 
 type NavProps = {};
 
 const Nav: React.FC<NavProps> = () => {
+  const [user] = useAuthState(auth)
   const pathname = usePathname()
 
   const homeActive = pathname === '/'
@@ -44,8 +47,8 @@ const Nav: React.FC<NavProps> = () => {
           </Link>
         </div>
         <Link
-          href={""}
-          className="px-[16px] py-[11px] border rounded-lg border-Purple"
+          href={`/preview/${user?.uid}`}
+          className="px-[16px] py-[11px] border rounded-lg border-Purple hover:bg-Light-Purple"
         >
           <Eye size={20} color="#633CFF" className="md:hidden" />
           <span className="font-semibold text-base leading-6 hidden md:block text-Purple">

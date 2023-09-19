@@ -26,7 +26,6 @@ export default function Home() {
   const [isEdited, setIsEdited] = useState(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [user] = useAuthState(auth);
-  const [isMountedAgain, setIsMountedAgain] = useState<boolean>(false);
 
   const links = useAppSelector((state) => state.links.links);
   const dispatch = useDispatch<AppDispatc>();
@@ -60,13 +59,10 @@ export default function Home() {
   }, [links]);
 
   const handleCreateLink = async () => {
-    // links.map((each) => {
-    //   if (!!each.link || !!each.plat) {
-    //     setInputEmpty(true);
-    //     alert("Links cannot be empty");
-    //   }
-    // });
-    // if (inputEmpty) return;
+    if (inputEmpty) {
+      toast({title: "Fill in all Link Inputs"})
+      return;
+    }
     setPostingLoad(true);
     try {
       const userRef = doc(firestore, "users", `${user?.uid}`);
@@ -208,6 +204,8 @@ export default function Home() {
                                 index={index}
                                 onChange={handleChange}
                                 deleteLink={handleDelete}
+                                inputEmpty={inputEmpty}
+                                setInputEmpty={setInputEmpty}
                               />
                             </div>
                           )}
