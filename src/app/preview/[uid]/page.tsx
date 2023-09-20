@@ -5,10 +5,10 @@ import React, { useEffect, useState } from "react";
 import platforms from "../../../../platforms";
 import { platform, userLink } from "../../../../lib/types";
 import { DocumentData, doc, getDoc } from "firebase/firestore";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { auth, firestore } from "../../../../utitls/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Image from "next/image";
+import Image, { ImageLoader } from "next/image";
 import { usePathname } from "next/navigation";
 
 const Preview = ({ params }: { params: { uid: string } }) => {
@@ -71,6 +71,8 @@ const Preview = ({ params }: { params: { uid: string } }) => {
         <div className="flex flex-col gap-6 text-center">
           <Image
             src={data?.photoURL}
+            width={104}
+            height={104}
             alt=""
             className="h-24 w-24 rounded-full object-cover mx-auto"
           />
@@ -93,7 +95,7 @@ const Preview = ({ params }: { params: { uid: string } }) => {
               style={{ backgroundColor: each.color }}
             >
               <div className="flex gap-2 items-center">
-                <Image src={each.solid} alt="" className="w-5 h-5" />
+                <Image src={each.solid} width={20} height={20} alt="" className="w-5 h-5" />
                 <span
                   className={`text-base font-normal ${
                     each.platform === "Frontend Mentor"

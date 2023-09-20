@@ -52,7 +52,7 @@ const Login: React.FC<loginProps> = () => {
 
   return (
     <>
-      <div className="w-[476px] flex flex-col translate-y-[-50%] translate-x-[-50%] top-[50%] left-[50%] fixed">
+      <div className="max-w-[476px] flex flex-col translate-y-[-50%] translate-x-[-50%] top-[50%] left-[50%] fixed">
         <Link
           href={""}
           className="flex gap-2 align-middle mb-12 justify-center"

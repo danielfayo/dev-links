@@ -150,12 +150,16 @@ const Profile: React.FC<profileProps> = () => {
                     {selectFile ? (
                       <Image
                         src={selectFile}
+                        width={193}
+                        height={193}
                         alt=""
                         className="absolute  w-[193px] h-[193px] rounded-lg object-cover opacity-40"
                       />
                     ) : (
                       <Image
                         src={user?.photoURL as string}
+                        width={193}
+                        height={193}
                         alt=""
                         className="absolute  w-[193px] h-[193px] rounded-lg object-cover opacity-40"
                       />
