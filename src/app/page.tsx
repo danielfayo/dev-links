@@ -17,6 +17,7 @@ import { fetchData } from "../../utitls/firebase/fetchData";
 import { userLink } from "../../lib/types";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import DragContent from "@/providers/DragContent";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   // const {result} = fetchData()
@@ -26,6 +27,7 @@ export default function Home() {
   const [isEdited, setIsEdited] = useState(false);
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [user] = useAuthState(auth);
+  const router = useRouter()
 
   const links = useAppSelector((state) => state.links.links);
   const dispatch = useDispatch<AppDispatc>();
@@ -60,7 +62,7 @@ export default function Home() {
 
   const handleCreateLink = async () => {
     if (inputEmpty) {
-      toast({title: "Fill in all Link Inputs"})
+      toast({ title: "Fill in all Link Inputs" });
       return;
     }
     setPostingLoad(true);
@@ -94,6 +96,7 @@ export default function Home() {
         if (docSnap.exists() && docSnap.data()?.userLinks.length > 0) {
           return dispatch(updateLink(docSnap.data()?.userLinks));
         }
+
       } catch (error) {
         console.log(error);
       } finally {
@@ -121,6 +124,14 @@ export default function Home() {
       title: "Deleted",
     });
   };
+
+  // useEffect(()=> {
+  //   if (user === undefined){
+  //     useRouter().push("/login")
+  //   }
+  // },[user])
+
+  // console.log(user);
 
   const handleDragEnd = (result: any) => {
     if (!result.destination) return;
