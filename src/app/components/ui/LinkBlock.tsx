@@ -54,7 +54,7 @@ const LinkBlock: React.FC<LinkBlockProps> = ({
     dispatch(updateLink(updatedUserLinks))
   }
 
-  if (!link || !plat){
+  if (link === undefined || plat === undefined){
     setInputEmpty(true)
   }
 

@@ -65,13 +65,13 @@ const Signup: React.FC<signupProps> = () => {
 
   return (
     <>
-      <div className="max-w-[476px] flex flex-col translate-y-[-50%] translate-x-[-50%] top-[50%] left-[50%] fixed">
+      <div className="max-w-[476px] w-full flex flex-col translate-y-[-50%] translate-x-[-50%] top-[50%] left-[50%] fixed">
         <Link
           href={""}
           className="flex gap-2 align-middle mb-12 justify-center"
         >
-          <Image src="./solar_link-circle-bold.svg" alt="logo" />
-          <Image src="./devlinks.svg" alt="logo text" />
+          <Image src="./solar_link-circle-bold.svg" alt="logo" width={40} height={40} />
+          <Image src="./devlinks.svg" alt="logo text" width={135} height={26} />
         </Link>
         <div className="md:bg-White rounded-lg p-10">
           <div className="flex flex-col gap-2 mb-10">

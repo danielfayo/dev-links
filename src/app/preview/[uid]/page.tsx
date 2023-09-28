@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import platforms from "../../../../platforms";
 import { platform, userLink } from "../../../../lib/types";
 import { DocumentData, doc, getDoc } from "firebase/firestore";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2, LoaderIcon } from "lucide-react";
 import { auth, firestore } from "../../../../utitls/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Image, { ImageLoader } from "next/image";
@@ -51,8 +51,16 @@ const Preview = ({ params }: { params: { uid: string } }) => {
   const URL = `${origin}${usePathname()}`;
   // console.log(URL);
 
+  console.log(data);
+  
+
   return (
     <>
+    {isLoading && (
+        <div className="p-4 bg-Dark-Grey fixed z-10 top-20 translate-y-[-50%] translate-x-[-50%] left-[50%] rounded-lg">
+          <LoaderIcon className="animate-spin text-White w-6 h-6 " />
+        </div>
+      )}
       {user?.uid === params.uid && (
         <nav className="flex items-center justify-between p-4 m-4 bg-White rounded-lg">
           <Link
@@ -68,14 +76,14 @@ const Preview = ({ params }: { params: { uid: string } }) => {
       )}
       <div className="hidden md:block w-full h-[45rem] absolute -top-[50%] bg-Purple rounded-3xl -z-10" />
       <div className="flex flex-col gap-14 mt-16 p-12 md:bg-White rounded-3xl mx-auto max-w-sm md:shadow-lg">
-        <div className="flex flex-col gap-6 text-center">
-          <Image
+        {data && <div className="flex flex-col gap-6 text-center">
+          {data.photoURL && <Image
             src={data?.photoURL}
             width={104}
             height={104}
             alt=""
             className="h-24 w-24 rounded-full object-cover mx-auto"
-          />
+          />}
           <div className="flex flex-col gap-2 justify-center">
             <span className="text-Dark-Grey text-[2rem] font-bold capitalize">
               {data?.email.split("@")[0]}
@@ -84,7 +92,7 @@ const Preview = ({ params }: { params: { uid: string } }) => {
               {data?.email}
             </span>
           </div>
-        </div>
+        </div>}
         <div className="flex flex-col gap-5 w-full justify-center items-center">
           {filteredArr.map((each, index) => (
             <div
