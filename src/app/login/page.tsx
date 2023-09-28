@@ -33,22 +33,21 @@ const Login: React.FC<loginProps> = () => {
     e.preventDefault();
     try {
       signInWithEmailAndPassword(loginForm.email, loginForm.password);
-      toast({
-        title: "SignIn Succesful",
-      });
-      router.push("/");
     } catch (error) {
-      if (error){
+      if (error) {
         toast({ title: "Someting went wrong" });
       }
     }
   };
 
-  // useEffect(() => {
-  //   if (error) {
-  //     setFormError(error.message);
-  //   }
-  // }, [error]);
+  useEffect(() => {
+    if (userCred) {
+      toast({
+        title: "SignIn Succesful",
+      });
+      router.push("/");
+    }
+  }, [userCred]);
 
   return (
     <>

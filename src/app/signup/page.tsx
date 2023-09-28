@@ -41,10 +41,6 @@ const Signup: React.FC<signupProps> = () => {
     }
     try {
       createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
-      toast({
-        title: "Accout Created Successfully",
-      });
-      router.push("/");
     } catch (error) {
       if (error) {
         toast({ title: "Something went wrong" });
@@ -60,6 +56,10 @@ const Signup: React.FC<signupProps> = () => {
   useEffect(() => {
     if (userCred) {
       createUserDocument(userCred.user);
+      toast({
+        title: "Accout Created Successfully",
+      });
+      router.push("/");
     }
   }, [userCred]);
 
