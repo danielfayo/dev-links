@@ -147,7 +147,7 @@ const Profile: React.FC<profileProps> = () => {
                     <span className="text-base font-semibold z-10">
                       + Upload Image
                     </span>
-                    {selectFile ? (
+                    {selectFile && (
                       <Image
                         src={selectFile}
                         width={193}
@@ -155,7 +155,8 @@ const Profile: React.FC<profileProps> = () => {
                         alt=""
                         className="absolute  w-[193px] h-[193px] rounded-lg object-cover opacity-40"
                       />
-                    ) : (
+                    )}
+                    {(user?.photoURL && !selectFile) && (
                       <Image
                         src={user?.photoURL as string}
                         width={193}
