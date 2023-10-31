@@ -7,6 +7,7 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../../utitls/firebase/clientApp";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { FIREBASE_ERRORS } from "../../../utitls/firebase/errors";
 
 type loginProps = {};
 
@@ -74,6 +75,13 @@ const Login: React.FC<loginProps> = () => {
             isLoading={loading}
             formError={formError}
           />
+          {error && (
+            <div>
+            <span className="text-Red text-sm my-2">
+              {FIREBASE_ERRORS[error.message as keyof typeof FIREBASE_ERRORS]}
+            </span><br/>
+            </div>
+          )}
           <Link
             className="mt-6 text-Grey text-base font-normal "
             href={"/signup"}

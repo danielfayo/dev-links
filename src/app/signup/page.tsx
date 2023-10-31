@@ -9,6 +9,7 @@ import { User } from "firebase/auth";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { FIREBASE_ERRORS } from "../../../utitls/firebase/errors";
 
 type signupProps = {};
 
@@ -91,7 +92,13 @@ const Signup: React.FC<signupProps> = () => {
             formError={formError}
             isLoading={loading}
           />
-
+          {error && (
+            <div>
+            <span className="text-Red text-sm my-2">
+              {FIREBASE_ERRORS[error.message as keyof typeof FIREBASE_ERRORS]}
+            </span><br/>
+            </div>
+          )}
           <Link
             className="mt-6 text-Grey text-base font-normal"
             href={"/login"}
