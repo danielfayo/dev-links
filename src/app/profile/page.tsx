@@ -250,7 +250,7 @@ const Profile: React.FC<profileProps> = () => {
                   "Update Email"
                 )}
               </button>
-              <div>
+              {/* <div>
                 {user && <span>{user?.uid}</span>}
                 <button
                   onClick={async () => {
@@ -263,7 +263,7 @@ const Profile: React.FC<profileProps> = () => {
                 >
                   Sign Out
                 </button>
-              </div>
+              </div> */}
             </div>
             <div className="px-4"></div>
           </div>
