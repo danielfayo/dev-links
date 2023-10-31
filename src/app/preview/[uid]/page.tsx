@@ -10,6 +10,7 @@ import { auth, firestore } from "../../../../utitls/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Image, { ImageLoader } from "next/image";
 import { usePathname } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
 
 const Preview = ({ params }: { params: { uid: string } }) => {
   const [user] = useAuthState(auth);
@@ -51,8 +52,10 @@ const Preview = ({ params }: { params: { uid: string } }) => {
   const URL = `${origin}${usePathname()}`;
   // console.log(URL);
 
-  console.log(data);
-  
+  function handleClickLink () {
+    navigator.clipboard.writeText(URL)
+    toast({title: "Link copied to clipboard"})
+  }
 
   return (
     <>
@@ -69,7 +72,7 @@ const Preview = ({ params }: { params: { uid: string } }) => {
           >
             Back to Editor
           </Link>
-          <button className="px-[1.69rem] py-[0.69rem]  rounded-lg bg-Purple text-White text-base font-semibold">
+          <button onClick={handleClickLink} className="px-[1.69rem] py-[0.69rem]  rounded-lg bg-Purple text-White text-base font-semibold">
             Share Link
           </button>
         </nav>
@@ -97,8 +100,8 @@ const Preview = ({ params }: { params: { uid: string } }) => {
           {filteredArr.map((each, index) => (
             <div
               key={index}
-              className={`flex items-center justify-between p-4 rounded-lg w-[237px] ${
-                each.platform === "Frontend Mentor" && "border border-Borders"
+              className={`flex items-center justify-between p-4 rounded-lg w-[237px] cursor-pointer ${
+                each.platform === "Frontend Mentor" && "border border-Borders" 
               }`}
               style={{ backgroundColor: each.color }}
             >

@@ -106,7 +106,7 @@ const Profile: React.FC<profileProps> = () => {
       toast({ title: "Email Address Updated Successfully" });
     } catch (error) {
       console.log(error);
-      toast({ title: "An Error Occured. Log In and try again" });
+      toast({ title: "An Error Occured. Log In and try again", variant: "destructive" });
     }
     setUpdatingEmail(false);
   };
@@ -138,9 +138,9 @@ const Profile: React.FC<profileProps> = () => {
                 </span>
                 <div className="flex flex-col gap-6 md:flex-row md:items-center">
                   <div
-                    onClick={() => selectedFileRef.current?.click()}
+                    onClick={user ? () => selectedFileRef.current?.click() : () => {}}
                     className={`flex flex-col gap-2 justify-center text-center w-[193px] h-[193px] rounded-lg text-Purple cursor-pointer ${
-                      !selectFile || (!user?.photoURL && `bg-Light-Purple`)
+                      !selectFile && (!user?.photoURL && `bg-Light-Purple`)
                     } relative`}
                   >
                     <ImageIcon size={40} className="mx-auto z-10" />
